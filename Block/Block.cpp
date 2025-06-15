@@ -51,3 +51,11 @@ std::ostream& operator<<(std::ostream& st, Block& bl)
     
     return st;
 }
+
+double Block::get_item(long long i, long long j)
+{
+    if(ptr[i] != val.size() && ptr[i+1] != ptr[i])
+        return val[ptr[i] + j];
+    
+    return 0.0;
+}

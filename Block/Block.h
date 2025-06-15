@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #include <istream>
 
@@ -15,9 +16,11 @@ class Block
         Block(long long n, long long m);
 
         void add_item(double item, long long i);
+        double get_item(long long i, long long j);        
 
         friend std::istream& operator>>(std::istream& st, Block& bl);
         friend std::ostream& operator<<(std::ostream& st, Block& bl);
+        friend std::vector<std::vector<double>> ldlt_decompose(Block& bl);
 };
 
 std::istream& operator>>(std::istream& st, Block& bl);

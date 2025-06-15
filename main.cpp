@@ -1,6 +1,7 @@
 #include <Block.h>
 #include <iostream>
 #include <fstream>
+#include <LDLT.h>
 
 int main(int argc, char* argv[])
 {
@@ -21,5 +22,16 @@ int main(int argc, char* argv[])
 
     std::cout << "CSR representation:" << std::endl;
     std::cout << bl;
+
+    auto res = ldlt_decompose(bl);
+
+    for(auto& vec: res)
+    {
+        for(auto& item: vec)
+            std::cout << item << " ";
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+
     return 0;
 }
