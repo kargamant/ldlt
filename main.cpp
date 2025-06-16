@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <LDLT.h>
+#include <chrono>
 
 int main(int argc, char* argv[])
 {
@@ -11,19 +12,20 @@ int main(int argc, char* argv[])
         return 1;
     }
 
+    std::cout << "Reading matrix..." << std::endl;
     std::ifstream ifs{argv[1], std::ios::in};
 
-    //std::cout << "enter size: ";
     long long m, n;
     ifs >> m >> n;
     Block bl{m, n};
-    //std::cout << "enter matrix:" << std::endl;
     ifs >> bl;
 
-    // std::cout << "CSR representation:" << std::endl;
-    // std::cout << bl;
 
+    std::cout << "Decomposing matrix..." << std::endl;
+    auto start = std::chrono::system_clock::now();
     auto res = ldlt_decompose(bl);
+    auto end = std::chrono::system_clock::now();
+    std::cout << "decomposition took: " << std::chrono::duration_cast<std::chrono::milliseconds>(end-start).count() << " milliseconds" << std::endl;
 
     std::ofstream ofs{argv[2], std::ios::out};
     ofs << m << " " << n << std::endl;
@@ -33,7 +35,7 @@ int main(int argc, char* argv[])
             ofs << item << " ";
         ofs << std::endl;
     }
-    std::cout << std::endl;
+    std::cout << "decomposition written to " << argv[2] << std::endl;
 
     return 0;
 }

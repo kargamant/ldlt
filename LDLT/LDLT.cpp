@@ -8,15 +8,16 @@ std::vector<std::vector<double>> ldlt_decompose(Block& bl)
     for(long long i=0; i<bl.m; i++)
     {
         L[i][i] = bl.get_item(i, i);
-        std::cout << "A[i][i]: " << L[i][i] << std::endl;
+        //std::cout << "A[i][i]: " << L[i][i] << std::endl;
         for(long long j=0; j<i; j++)
             L[i][i] -= L[i][j] * L[i][j] * L[j][j];
         
-        std::cout << "D[i][i]: " << L[i][i] << std::endl;
+        //std::cout << "D[i][i]: " << L[i][i] << std::endl;
         
         if(i == bl.m-1)
             break;
 
+        #pragma omp parallel for
         for(long long j=0; j<=i; j++)
         {
             L[i+1][j] = bl.get_item(i+1, j) / L[j][j];
@@ -26,3 +27,8 @@ std::vector<std::vector<double>> ldlt_decompose(Block& bl)
     }
     return L;
 }
+
+/*std::vector<std::vector<double>> ldlt_decompose_omp(Block& bl)
+{
+
+}*/
