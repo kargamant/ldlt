@@ -10,13 +10,6 @@ def generate_random_spd_matrix(size, lambda_=0.1):
     
     return B
 
-def verify(matrix):
-    try:
-        np.linalg.cholesky(matrix)
-        return True
-    except np.linalg.LinAlgError:
-        return False
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-n', action='store', help='size of matrix', type=int)
