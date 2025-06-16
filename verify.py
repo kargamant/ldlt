@@ -2,9 +2,8 @@ from scipy.linalg import ldl
 import numpy as np
 import argparse
 
-acc = np.float32(0.0001)
 
-def verify(matrix, ld_dec, size):
+def verify(matrix, ld_dec, size, acc):
     L, D = ldl(matrix)[:-1:]
     for i in range(size):
         if np.abs(D[i][i] - ld_dec[i][i]) > acc:
@@ -31,10 +30,11 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-if', '--ifile', action='store', type=str, help='file to read test matrix from')
     parser.add_argument('-d', '--dec', action='store', type=str, help='file to read decomposition from')
+    parser.add_argument('-a', '--acc', action='store', type=float, help='accuracy to compare elements with', default=0.0001)
 
     args = parser.parse_args()
     if args.ifile is not None and args.dec is not None:
         size, matrix = read_matr(args.ifile)
         size, ld_dec = read_matr(args.dec)
         
-        print('Correct decomposition!' if verify(matrix, ld_dec, size) else 'Incorrect decomposition!')
+        print('Correct decomposition!' if verify(matrix, ld_dec, size, args.acc) else 'Incorrect decomposition!')

@@ -20,8 +20,8 @@ int main(int argc, char* argv[])
     //std::cout << "enter matrix:" << std::endl;
     ifs >> bl;
 
-    std::cout << "CSR representation:" << std::endl;
-    std::cout << bl;
+    // std::cout << "CSR representation:" << std::endl;
+    // std::cout << bl;
 
     auto res = ldlt_decompose(bl);
 
