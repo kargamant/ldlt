@@ -1,27 +1,17 @@
 #pragma once
 #include <vector>
-#include <istream>
 
 class Block
 {
-    private:
-        static double sparse_percentage;
-        std::vector<double> val;
-        std::vector<long long> col;
-        std::vector<long long> ptr;
-
+    protected:
         long long n;
         long long m;
     public:
         Block(long long n, long long m);
 
-        void add_item(double item, long long i);
-        double get_item(long long i, long long j);        
+        virtual double get_item(long long i, long long j)=0;
+        virtual std::vector<std::vector<double>> to_vector()=0;
 
-        friend std::istream& operator>>(std::istream& st, Block& bl);
-        friend std::ostream& operator<<(std::ostream& st, Block& bl);
-        friend std::vector<std::vector<double>> ldlt_decompose(Block& bl);
+        long long get_m() {return m;}
+        long long get_n() {return n;}
 };
-
-std::istream& operator>>(std::istream& st, Block& bl);
-std::ostream& operator<<(std::ostream& st, Block& bl);

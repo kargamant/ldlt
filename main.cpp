@@ -1,4 +1,4 @@
-#include <Block.h>
+#include <CsrBlock.h>
 #include <iostream>
 #include <fstream>
 #include <LDLT.h>
@@ -17,18 +17,19 @@ int main(int argc, char* argv[])
 
     long long m, n;
     ifs >> m >> n;
-    Block bl{m, n};
+    CsrBlock bl{m, n};
     ifs >> bl;
 
 
     std::cout << "Decomposing matrix..." << std::endl;
     auto start = std::chrono::system_clock::now();
-    auto res = ldlt_decompose(bl);
+    auto ld = ldlt_decompose(bl);
     auto end = std::chrono::system_clock::now();
     std::cout << "decomposition took: " << std::chrono::duration_cast<std::chrono::milliseconds>(end-start).count() << " milliseconds" << std::endl;
 
     std::ofstream ofs{argv[2], std::ios::out};
     ofs << m << " " << n << std::endl;
+    auto res = ld.to_vector();
     for(auto& vec: res)
     {
         for(auto& item: vec)

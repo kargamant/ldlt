@@ -1,4 +1,5 @@
-#include <Block.h>
+#include <CsrBlock.h>
+#include <CoordinateBlock.h>
 
-std::vector<std::vector<double>> ldlt_decompose(Block& bl);
+CoordinateBlock ldlt_decompose(CsrBlock& bl);
 //std::vector<std::vector<double>> ldlt_decompose_omp(Block& bl);

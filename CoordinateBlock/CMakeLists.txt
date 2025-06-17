@@ -1,0 +1,3 @@
+add_library(coordinate_block CoordinateBlock.cpp)
+target_include_directories(coordinate_block PUBLIC .)
+target_link_libraries(coordinate_block block)
